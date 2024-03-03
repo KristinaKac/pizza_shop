@@ -1,0 +1,27 @@
+.offer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.offer_img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.offer_description {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 19px;
+}
+.offer_description h1 {
+    font-size: 70px;
+}
+.offer_description span {
+    font-size: 30px;
+}
+.offer_btns {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    column-gap: 20px;
+}

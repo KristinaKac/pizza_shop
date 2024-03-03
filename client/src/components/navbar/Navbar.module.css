@@ -1,0 +1,14 @@
+.navbar {
+    display: flex;
+    list-style-type: none;
+    column-gap: 15px;
+    align-items: center;
+
+}
+.navbar_item {
+
+}
+.navbar_item_link {
+    text-decoration: none;
+    color: black;
+}

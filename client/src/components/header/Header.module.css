@@ -1,0 +1,25 @@
+.header_back {
+    width: 100%;
+    height: 55px;
+}
+.header_wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 55px;
+    position: fixed;
+    background-color: antiquewhite;
+}
+.header {
+    width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+}
+.header_block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 15px;
+}
