@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import css from './Header.module.css';
 import Navbar from '../navbar/Navbar';
 import logo from '../../static/logo.png'
 import { NavLink } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
+import { useSelector } from 'react-redux';
+
 
 const Header = () => {
-    const isAuth = true;
+
+    const isAuth = useSelector((state) => state.userReducer.isAuth);
+
     const userName = 'Kristina';
 
     return (

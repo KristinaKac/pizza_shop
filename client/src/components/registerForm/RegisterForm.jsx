@@ -4,18 +4,23 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 import { NavLink } from 'react-router-dom';
 import RegisterFormValidation from './RegisterFormValidation';
+import { registrationThunk } from '../../redux/slices/user';
+import { useDispatch } from 'react-redux';
+
 
 const RegisterForm = () => {
+
+    const dispatch = useDispatch()
+
     return (
         <Formik
             initialValues={{ name: '', email: '', password: '' }}
             validationSchema={RegisterFormValidation}
 
             onSubmit={(values, { setSubmitting }) => {
+                dispatch(registrationThunk({ name: values.name, email: values.email, password: values.password }));
 
-                alert(JSON.stringify(values, null, 2));
                 setSubmitting(false);
-
             }}
         >
             {({ isSubmitting }) => (

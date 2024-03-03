@@ -3,9 +3,9 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { User, Basket } = require('../models/models');
 
-const generateJwt = (id, email, role) => {
+const generateJwt = (id, email, role, name) => {
     return jwt.sign(
-        { id, email, role },
+        { id, email, role, name },
         // секретный ключ (может быть любой)
         process.env.SECRET_KEY,
         // сколько времени будет жить токен - в целях безопасности всего 24 часа
@@ -15,8 +15,9 @@ const generateJwt = (id, email, role) => {
 
 class UserController {
     async registration(req, res, next) {
-        const { email, password, role } = req.body;
-        if (!email || !password) {
+        console.log(req)
+        const { name, email, password, role } = req.body;
+        if (!email || !password || !name) {
             return next(ApiError.badRequest('Некорректный email или password'));
         }
         const candidate = await User.findOne({ where: { email } });
@@ -25,11 +26,11 @@ class UserController {
         }
         // хэшируем пароль (зашифровываем его)
         const hashPassword = await bcrypt.hash(password, 5);
-        const user = await User.create({ email, password: hashPassword, role });
+        const user = await User.create({ name, email, password: hashPassword, role });
         // сразу создаем новому пользователю корзину
         const basket = await Basket.create({ userId: user.id });
         // генерируем пользователю json web токен
-        const token = generateJwt(user.id, user.email, user.role);
+        const token = generateJwt(user.id, user.email, user.role, user.name);
 
         return res.json({ token });
     }

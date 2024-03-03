@@ -3,18 +3,20 @@ import css from './LoginForm.module.css';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import LoginFormValidation from './LoginFormValidation';
 import { NavLink } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { loginThunk } from '../../redux/slices/user';
+
 
 const LoginForm = () => {
+    const dispatch = useDispatch();
     return (
         <Formik
             initialValues={{ email: '', password: '' }}
             validationSchema={LoginFormValidation}
 
             onSubmit={(values, { setSubmitting }) => {
-
-                alert(JSON.stringify(values, null, 2));
+                dispatch(loginThunk({email: values.email, password: values.password}));
                 setSubmitting(false);
-
             }}
         >
             {({ isSubmitting }) => (
