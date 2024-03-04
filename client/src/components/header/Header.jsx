@@ -4,14 +4,22 @@ import Navbar from '../navbar/Navbar';
 import logo from '../../static/logo.png'
 import { NavLink } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setIsAuth, setUser } from '../../redux/slices/user';
 
 
 const Header = () => {
 
-    const isAuth = useSelector((state) => state.userReducer.isAuth);
+    const dispatch = useDispatch();
 
-    const userName = 'Kristina';
+    const isAuth = useSelector((state) => state.userReducer.isAuth);
+    const user = useSelector((state) => state.userReducer.user);
+
+    const logout = () => {
+        dispatch(setIsAuth(false));
+        dispatch(setUser({ userInfo: {}, status: 'loading' }));
+        localStorage.removeItem('token');
+    }
 
     return (
         <div className={css.header_back}>
@@ -26,10 +34,10 @@ const Header = () => {
                     </div>
 
                     <div className={css.header_block}>
-                        {isAuth && <div>{`Hello, ${userName}`}</div>}
+                        {isAuth && <div>{`Hello, ${user.userInfo.name}`}</div>}
                         {isAuth
-                            ? <Button variant="primary">Logout</Button>
-                            : <Button variant="primary"><NavLink style={{textDecoration: 'none', color: 'white'}} to='/login'>Войти</NavLink></Button>
+                            ? <Button onClick={() => logout()} variant="primary">Logout</Button>
+                            : <Button variant="primary"><NavLink style={{ textDecoration: 'none', color: 'white' }} to='/login'>Войти</NavLink></Button>
                         }
                         {isAuth && <NavLink to='/basket'>Корзина</NavLink>}
                     </div>

@@ -30,8 +30,8 @@ const Navbar = () => {
             </li>
             {isAith & isAdmin &&
                 <li className={css.navbar_item}>
-                    <NavLink className={css.navbar_item_link}>
-                        Администратор
+                    <NavLink to='/admin' className={css.navbar_item_link}>
+                        Управление сайтом
                     </NavLink>
                 </li>
             }

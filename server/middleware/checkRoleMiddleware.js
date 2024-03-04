@@ -12,6 +12,7 @@ module.exports = function (role) {
                 return res.status(401).json({ message: 'Не авторизован' });
             }
             const decoded = jws.verify(token, process.env.SECRET_KEY);
+            console.log(decoded)
             if(decoded.role !== role) {
                 return res.status(401).json({ message: 'Нет доступа' });
             }

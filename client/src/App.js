@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
@@ -8,11 +8,20 @@ import Contact from './pages/Contact';
 import Basket from './pages/basket/Basket';
 import Login from './pages/login/Login';
 import Register from './pages/register/Register';
-import CardProduct from './pages/CardProduct';
 import Header from './components/header/Header';
 import Admin from './pages/Admin';
+import { useDispatch, useSelector } from 'react-redux';
+import { checkAuthThunk } from './redux/slices/user';
+import CardProduct from './pages/cardProduct/CardProduct';
 
 function App() {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(checkAuthThunk());
+  }, []);
+
   return (
     <React.Fragment>
       <Header />
@@ -23,7 +32,6 @@ function App() {
           <Route path='/product' element={<Menu />} />
           <Route path='/basket' element={<Basket />} />
           <Route path='/admin' element={<Admin />} />
-
           <Route path='/about' element={<About />} />
           <Route path='/contact' element={<Contact />} />
           <Route path='login' element={<Login />} />
