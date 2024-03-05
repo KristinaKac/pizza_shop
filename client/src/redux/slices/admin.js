@@ -45,21 +45,7 @@ export const adminSlice = createSlice({
             state.types.items = action.payload;
             state.types.status = 'loaded';
         });
-        // builder.addCase(getOneProductThunk.pending, (state, action) => {
-        //     state.product.item = [];
-        //     state.product.status = 'loading';
-        // });
-        // builder.addCase(getOneProductThunk.rejected, (state, action) => {
-        //     state.product.item = [];
-        //     state.product.status = 'error';
-        // });
-        // builder.addCase(getOneProductThunk.fulfilled, (state, action) => {
-        //     state.product.item = action.payload;
-        //     state.product.status = 'loaded';
-        // });
     }
 });
-
-// export const { setIsAuth, setUser } = productSlice.actions;
 
 export const adminReducer = adminSlice.reducer

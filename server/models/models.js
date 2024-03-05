@@ -8,8 +8,6 @@ const User = sequelize.define('user', {
     password: { type: DataTypes.STRING },
     role: { type: DataTypes.STRING, defaultValue: "USER" },
 });
-
-
 const Basket = sequelize.define('basket', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 });
@@ -27,10 +25,6 @@ const Type = sequelize.define('type', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     name: { type: DataTypes.STRING, unique: true, allowNull: false },
 });
-// const Brand = sequelize.define('brand', {
-//     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-//     name: { type: DataTypes.STRING, unique: true, allowNull: false },
-// });
 const Rating = sequelize.define('rating', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     rate: { type: DataTypes.INTEGER, allowNull: false },
@@ -41,23 +35,17 @@ const ProductInfo = sequelize.define('product_info', {
     description: { type: DataTypes.STRING, allowNull: false },
 });
 
-// const TypeBrand = sequelize.define('type_brand', {
-//     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-// })
-User.hasOne(Basket); // один пользователь имеет одну корзину
-Basket.belongsTo(User); // корзина принадлежит пользователю
+User.hasOne(Basket); 
+Basket.belongsTo(User); 
 
-User.hasMany(Rating); // один пользователь может иметь много оценок
-Rating.belongsTo(User);// Рэйтинг принадлежит пользователю
+User.hasMany(Rating); 
+Rating.belongsTo(User);
 
 Basket.hasMany(BasketProduct);
 BasketProduct.belongsTo(Basket);
 
 Type.hasMany(Product);
 Product.belongsTo(Type);
-
-// Brand.hasMany(Device);
-// Device.belongsTo(Brand);
 
 Product.hasMany(Rating);
 Rating.belongsTo(Product);
@@ -68,17 +56,12 @@ BasketProduct.belongsTo(Product);
 Product.hasMany(ProductInfo, {as: 'info'});
 ProductInfo.belongsTo(Product);
 
-// Type.belongsToMany(Brand, { through: TypeBrand });
-// Brand.belongsToMany(Type, { through: TypeBrand });
-
 module.exports = {
     User,
     Basket,
     BasketProduct,
     Type,
-    // Brand,
     Rating,
     ProductInfo,
-    // TypeBrand,
     Product,
 }

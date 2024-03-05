@@ -4,9 +4,17 @@ import Button from 'react-bootstrap/Button';
 import pizza from '../../static/pizza1.jpg'
 import { NavLink } from 'react-router-dom';
 import ProductModal from '../productInfo/ProductInfo';
+import { useDispatch } from 'react-redux';
+import { addToCartThunk } from '../../redux/slices/basket';
 
 
 const ProductCard = ({ product }) => {
+
+    const dispatch = useDispatch();
+
+    const addToCart = () => {
+        dispatch(addToCartThunk(product.id));
+    }
 
     return (
         <li className={css.product_card}>
@@ -17,7 +25,7 @@ const ProductCard = ({ product }) => {
             </NavLink>
             <div className={css.footer_product_card}>
                 <div className={css.product_card_price}>{product.price}</div>
-                <Button className={css.add_to_card_btn} variant="danger">Выбрать</Button>
+                <Button onClick={() => addToCart()} className={css.add_to_card_btn} variant="danger">Выбрать</Button>
             </div>
         </li>
     )

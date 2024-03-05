@@ -8,12 +8,7 @@ class ProductController {
     async create(req, res, next) {
         try {
             let { name, price, typeId, info } = req.body;
-            console.log(name)
-            console.log(price)
-            console.log(typeId)
-            console.log(info)
             const { img } = req.files;
-            console.log(img)
             let fileName = uuid.v4() + ".jpg";
             // переместить полученный файл с клиента в папку static
             // dirname это путь до текущей папки с контроллерами

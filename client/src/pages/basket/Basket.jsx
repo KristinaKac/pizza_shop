@@ -1,10 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import pizza from '../../static/pizza1.jpg'
 import Button from 'react-bootstrap/Button';
 import css from './Basket.module.css';
 import BasketForm from '../../components/basketForm/BasketForm';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllProductsIdThunk, getBasketThunk } from '../../redux/slices/basket';
 
 const Basket = () => {
+
+    const dispatch = useDispatch();
+
+    const productsAtCart = useSelector((state) => state.basketReducer.productsAtCart)
+
+    useEffect(() => {
+        dispatch(getBasketThunk());
+        dispatch(getAllProductsIdThunk());
+    }, []);
+
+    console.log(productsAtCart)
+
     return (
         <div className={css.basket_wrapper}>
             <h2>Корзина</h2>
