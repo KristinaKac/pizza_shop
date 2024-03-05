@@ -19,7 +19,7 @@ const initialState = {
         items: [],
         count: 0,
         currentPage: 1,
-        limitProductOnPage: 2,
+        limitProductOnPage: 1,
         status: 'loading',
     },
     product: {

@@ -5,6 +5,9 @@ import { setCurrentPage } from '../../redux/slices/product';
 
 const Paginator = () => {
 
+    const pages = [];
+    const portionSize = 3;
+
     const dispatch = useDispatch();
 
     const currentPage = useSelector((state) => state.productReducer.products.currentPage);
@@ -17,56 +20,44 @@ const Paginator = () => {
         totalCountPagesArr[i] = i;
     }
 
-    const [portionNumber, setPortionNumber] = useState(1);
-    const portionSize = 3;
-
-    let portionCount = Math.ceil(totalCountPages / portionSize);
-
-    let leftPortionPageNumber = (portionNumber - 1) * portionSize + 1;
-    let rightPortionPageNumber = portionNumber * portionSize;
-
 
     const clickPrevPage = () => {
         if (currentPage === 1) return;
 
         dispatch(setCurrentPage(currentPage - 1));
-
-        if (currentPage === leftPortionPageNumber) {
-            setPortionNumber(portionNumber - 1)
-        }
     }
     const clickNextPage = () => {
         if (currentPage === totalCountPagesArr.length) return;
 
         dispatch(setCurrentPage(currentPage + 1));
-
-        if (currentPage === rightPortionPageNumber) {
-            setPortionNumber(portionNumber + 1)
-        }
     }
     const clickFirstPage = () => {
         dispatch(setCurrentPage(1));
-        setPortionNumber(1)
     }
     const clickLastPage = () => {
         dispatch(setCurrentPage(totalCountPagesArr.length));
-        setPortionNumber(portionCount);
     }
 
+    const start = Math.max(1, Math.round(currentPage - portionSize / 2));
+    const end = Math.min(totalCountPages, Math.round(currentPage + portionSize / 2));
+
+
+    for (let i = start; i <= end; i++) {
+        pages.push(
+            <Pagination.Item active={currentPage === i} onClick={() =>
+                dispatch(setCurrentPage(i))
+            }>{i}
+            </Pagination.Item>
+        )
+    }
 
     return (
         <Pagination>
             <Pagination.First onClick={() => clickFirstPage()} />
             <Pagination.Prev onClick={() => clickPrevPage()} />
-            <Pagination.Ellipsis />
-            {totalCountPagesArr
-                .filter(page => page + 1 >= leftPortionPageNumber && page + 1 <= rightPortionPageNumber)
-                .map(page =>
-                    <Pagination.Item active={currentPage === page + 1} onClick={() =>
-                        dispatch(setCurrentPage(page + 1))
-                    }>{page + 1}</Pagination.Item>
-                )}
-            <Pagination.Ellipsis />
+            {start !== 1 && <Pagination.Ellipsis />}
+            {pages}
+            {end !== totalCountPagesArr.length && <Pagination.Ellipsis />}
             <Pagination.Next onClick={() => clickNextPage()} />
             <Pagination.Last onClick={() => clickLastPage()} />
         </Pagination>
