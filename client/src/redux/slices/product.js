@@ -5,8 +5,8 @@ export const createProductThunk = createAsyncThunk('product/create', async (prod
     const { data } = await createProduct(product);
     return data;
 })
-export const getAllProductsThunk = createAsyncThunk('product/getAll', async () => {
-    const { data } = await getAllProducts();
+export const getAllProductsThunk = createAsyncThunk('product/getAll', async ({typeId, limit, page}) => {
+    const { data } = await getAllProducts(typeId, limit, page);
     return data;
 })
 export const getOneProductThunk = createAsyncThunk('product/getOne', async (id) => {
@@ -17,7 +17,10 @@ export const getOneProductThunk = createAsyncThunk('product/getOne', async (id) 
 const initialState = {
     products: {
         items: [],
-        status: 'loading'
+        count: 0,
+        currentPage: 1,
+        limitProductOnPage: 2,
+        status: 'loading',
     },
     product: {
         item: [],
@@ -29,10 +32,9 @@ export const productSlice = createSlice({
     name: 'product',
     initialState,
     reducers: {
-        setProducts: (state, action) => {
-            state.products = action.payload;
+        setCurrentPage: (state, action) => {
+            state.products.currentPage = action.payload;
         },
-
     },
     extraReducers: builder => {
         builder.addCase(getAllProductsThunk.pending, (state, action) => {
@@ -45,6 +47,7 @@ export const productSlice = createSlice({
         });
         builder.addCase(getAllProductsThunk.fulfilled, (state, action) => {
             state.products.items = action.payload.rows;
+            state.products.count = action.payload.count;
             state.products.status = 'loaded';
         });
         builder.addCase(getOneProductThunk.pending, (state, action) => {
@@ -62,6 +65,6 @@ export const productSlice = createSlice({
     }
 });
 
-// export const { setIsAuth, setUser } = productSlice.actions;
+export const { setCurrentPage } = productSlice.actions;
 
 export const productReducer = productSlice.reducer

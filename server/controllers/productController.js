@@ -8,12 +8,17 @@ class ProductController {
     async create(req, res, next) {
         try {
             let { name, price, typeId, info } = req.body;
+            console.log(name)
+            console.log(price)
+            console.log(typeId)
+            console.log(info)
             const { img } = req.files;
+            console.log(img)
             let fileName = uuid.v4() + ".jpg";
             // переместить полученный файл с клиента в папку static
             // dirname это путь до текущей папки с контроллерами
             // две точки, чтобы вернуться на дерикторию назад
-            // static, чтобы попасть в папку статик
+            // static, чтобы поп асть в папку статик
             img.mv(path.resolve(__dirname, '..', 'static', fileName));
 
             const product = await Product.create({ name, price, typeId, img: fileName });

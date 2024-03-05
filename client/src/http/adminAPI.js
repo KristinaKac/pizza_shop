@@ -6,4 +6,7 @@ export const createType = async (name) => {
 export const getAllTypes = async () => {
     return authHost.get('/api/type');
 }
+export const createProduct = async (formData) => {
+    return authHost.post('/api/product', formData);
+}
 
