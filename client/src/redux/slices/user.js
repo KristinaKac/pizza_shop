@@ -20,6 +20,7 @@ export const checkAuthThunk = createAsyncThunk('users/auth', async () => {
 
 const initialState = {
     isAuth: false,
+    isAdmin: false,
     user: {
         userInfo: {},
         status: 'loading'
@@ -47,6 +48,9 @@ export const userSlice = createSlice({
             state.user.status = 'error';
         });
         builder.addCase(registrationThunk.fulfilled, (state, action) => {
+            if (action.payload.role === 'ADMIN') {
+                state.isAdmin = true;
+            }
             state.user.userInfo = action.payload;
             state.user.status = 'loaded';
             state.isAuth = true;
@@ -61,6 +65,9 @@ export const userSlice = createSlice({
             state.user.status = 'error';
         });
         builder.addCase(loginThunk.fulfilled, (state, action) => {
+            if (action.payload.role === 'ADMIN') {
+                state.isAdmin = true;
+            }
             state.user.userInfo = action.payload;
             state.user.status = 'loaded';
             state.isAuth = true;
@@ -75,6 +82,9 @@ export const userSlice = createSlice({
             state.user.status = 'error';
         });
         builder.addCase(checkAuthThunk.fulfilled, (state, action) => {
+            if (action.payload.role === 'ADMIN') {
+                state.isAdmin = true;
+            }
             state.user.userInfo = action.payload;
             state.user.status = 'loaded';
             state.isAuth = true;

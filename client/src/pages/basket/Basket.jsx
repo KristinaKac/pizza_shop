@@ -1,40 +1,53 @@
 import React, { useEffect } from 'react';
-import pizza from '../../static/pizza1.jpg'
-import Button from 'react-bootstrap/Button';
-import css from './Basket.module.css';
-import BasketForm from '../../components/basketForm/BasketForm';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllProductsIdThunk, getBasketThunk } from '../../redux/slices/basket';
+import BasketForm from '../../components/basketForm/BasketForm';
+import { getProductsThunk, productsIdAtCartThunk, setBasketProduct } from '../../redux/slices/basket';
+import css from './Basket.module.css';
+import BasketCard from './BasketCard';
 
 const Basket = () => {
 
     const dispatch = useDispatch();
-
-    const productsAtCart = useSelector((state) => state.basketReducer.productsAtCart)
+    const basket = useSelector((state) => state.basketReducer.basket);
+    const products = useSelector((state) => state.basketReducer.products);
+    const basketProduct = useSelector((state) => state.basketReducer.basketProduct);
 
     useEffect(() => {
-        dispatch(getBasketThunk());
-        dispatch(getAllProductsIdThunk());
+        dispatch(productsIdAtCartThunk());
+        dispatch(getProductsThunk());
     }, []);
 
-    console.log(productsAtCart)
+    useEffect(() => {
+        const result = [];
+        if (basket.status === 'loaded') {
+            products.items.map(product => {
+                if (Object.hasOwn(basket.productsId, product.id)) {
+                    result.push({ product, amount: basket.productsId[product.id] })
+                }
+            })
+            dispatch(setBasketProduct(result));
+        }
+    }, [basket]);
+
+    const summ = () => {
+        if (basketProduct.status === 'loaded') {
+            return basketProduct.items.reduce((currentSum, current) => {
+                return currentSum + (current.amount * current.product.price)
+            }, 0);
+        }
+    }
+
 
     return (
         <div className={css.basket_wrapper}>
             <h2>Корзина</h2>
             <div className={css.basket}>
                 <ul className={css.basket_list}>
-                    <li className={css.basket_item}>
-                        <div className={css.basket_control}>
-                            <img style={{ width: '90px' }} src={pizza} alt="" />
-                            <span >Пепперони</span>
-                        </div>
-                        <div className={css.basket_control}>
-                            <span>500p</span>
-                            <Button><i className="bi bi-basket"></i></Button>
-                        </div>
-                    </li>
+                    {basketProduct.items.map(item => <BasketCard item={item} />)}
                 </ul>
+                <div>Сумма заказа:
+                    {summ()}
+                </div>
                 <BasketForm />
             </div>
         </div>

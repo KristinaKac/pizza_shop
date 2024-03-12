@@ -1,28 +1,35 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { createProduct, createType, getAllTypes } from '../../http/adminAPI';
-import { addToCart, getAllProductsId, getBasket } from '../../http/basketAPI';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { addToCart, getAllProductsId, removeFromCart } from '../../http/basketAPI';
+import { getAllProducts } from '../../http/productAPI';
 
-export const getBasketThunk = createAsyncThunk('basket/get', async () => {
-    const { data } = await getBasket();
-    return data;
-});
 export const addToCartThunk = createAsyncThunk('basket/add', async (id) => {
     const { data } = await addToCart(id);
     return data;
 });
-export const getAllProductsIdThunk = createAsyncThunk('basket/getAll', async () => {
+export const removeFromCartThunk = createAsyncThunk('basket/remove', async (id) => {
+    const { data } = await removeFromCart(id);
+    return data;
+});
+export const productsIdAtCartThunk = createAsyncThunk('basket/getAll', async () => {
     const { data } = await getAllProductsId();
     return data;
 });
-
+export const getProductsThunk = createAsyncThunk('product/get', async () => {
+    const { data } = await getAllProducts();
+    return data;
+})
 
 const initialState = {
     basket: {
-        id: null,
+        productsId: {},
         status: 'loading'
     },
-    productsAtCart: {
-        products: [],
+    products: {
+        items: [],
+        status: 'loading'
+    },
+    basketProduct: {
+        items: [],
         status: 'loading'
     }
 }
@@ -31,35 +38,52 @@ export const basketSlice = createSlice({
     name: 'basket',
     initialState,
     reducers: {
-
-
+        setBasketProduct: (state, action) => {
+            state.basketProduct.items = action.payload;
+            state.basketProduct.status = 'loaded'
+        },
     },
     extraReducers: builder => {
-        builder.addCase(getBasketThunk.pending, (state, action) => {
-            state.basket.id = null;
+        builder.addCase(productsIdAtCartThunk.pending, (state, action) => {
+            state.basket.productsId = [];
             state.basket.status = 'loading';
         });
-        builder.addCase(getBasketThunk.rejected, (state, action) => {
-            state.basket.id = null;
+        builder.addCase(productsIdAtCartThunk.rejected, (state, action) => {
+            state.basket.productsId = [];
             state.basket.status = 'error';
         });
-        builder.addCase(getBasketThunk.fulfilled, (state, action) => {
-            state.basket.id = action.payload.id;
+        builder.addCase(productsIdAtCartThunk.fulfilled, (state, action) => {
+
+            const idArr = action.payload.rows.map(product => product.productId);
+            const result = {};
+
+            idArr.forEach(id => {
+                if (Object.hasOwn(result, id)) {
+                    result[id]++;
+                } else {
+                    result[id] = 1;
+                }
+            });
+            state.basket.productsId = result;
             state.basket.status = 'loaded';
         });
-        builder.addCase(getAllProductsIdThunk.pending, (state, action) => {
-            state.productsAtCart.products = [];
-            state.productsAtCart.status = 'loading';
+
+
+        builder.addCase(getProductsThunk.pending, (state, action) => {
+            state.products.items = [];
+            state.products.status = 'loading';
         });
-        builder.addCase(getAllProductsIdThunk.rejected, (state, action) => {
-            state.productsAtCart.products = [];
-            state.productsAtCart.status = 'error';
+        builder.addCase(getProductsThunk.rejected, (state, action) => {
+            state.products.items = [];
+            state.products.status = 'error';
         });
-        builder.addCase(getAllProductsIdThunk.fulfilled, (state, action) => {
-            state.productsAtCart.products = action.payload.rows;
-            state.productsAtCart.status = 'loaded';
+        builder.addCase(getProductsThunk.fulfilled, (state, action) => {
+            state.products.items = action.payload.rows;
+            state.products.status = 'loaded';
         });
     }
 });
+
+export const {setBasketProduct } = basketSlice.actions;
 
 export const basketReducer = basketSlice.reducer

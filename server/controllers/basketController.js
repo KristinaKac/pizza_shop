@@ -20,6 +20,26 @@ class BasketController {
         const basketProduct = await BasketProduct.create({ basketId, productId });
         return res.json(basketProduct);
     }
+    async removeProduct(req, res, next) {
+        let userId = req.user.id;
+        let productId = req.params.id;
+
+        if(!productId) {
+            return next(ApiError.internal('Неккоректный id'));
+        }
+
+        const basket = await Basket.findOne({ where: { userId } });
+        const basketId = basket.id;
+
+        const basketProduct = await BasketProduct.destroy({
+            where: {
+                basketId,
+                productId
+            }
+        });
+
+        return res.json(basketProduct);
+    }
     async getAllProductsFromBasket(req, res, next) {
         let userId = req.user.id;
 
@@ -30,65 +50,6 @@ class BasketController {
 
         return res.json(productsId);
     }
-
-    // async create(req, res, next) {
-    //     try {
-    //         let { name, price, typeId, info } = req.body;
-
-    //         const { img } = req.files;
-    //         console.log(img)
-    //         let fileName = uuid.v4() + ".jpg";
-    //         // переместить полученный файл с клиента в папку static
-    //         // dirname это путь до текущей папки с контроллерами
-    //         // две точки, чтобы вернуться на дерикторию назад
-    //         // static, чтобы поп асть в папку статик
-    //         img.mv(path.resolve(__dirname, '..', 'static', fileName));
-
-    //         const product = await Product.create({ name, price, typeId, img: fileName });
-
-    //         if (info) {
-    //             info = JSON.parse(info);
-    //             info.forEach(i => {
-    //                 ProductInfo.create({
-    //                     title: i.title,
-    //                     description: i.description,
-    //                     productId: product.id
-    //                 });
-    //             });
-    //         }
-    //         return res.json(product);
-    //     } catch (error) {
-    //         next(ApiError.badRequest(error.message));
-    //     }
-    // }
-
-    // async getAll(req, res) {
-    //     let { typeId, limit, page } = req.query;
-
-    //     page = page || 1;
-    //     limit = limit || 9;
-
-    //     let offset = page * limit - limit;
-
-    //     let product;
-    //     if (!typeId) {
-    //         product = await Product.findAndCountAll({ limit, offset });
-    //     }
-    //     if (typeId) {
-    //         product = await Product.findAndCountAll({ where: { typeId }, limit, offset })
-    //     }
-    //     return res.json(product);
-    // }
-    // async getOne(req, res) {
-    //     const { id } = req.params;
-    //     const product = await Product.findOne(
-    //         {
-    //             where: { id },
-    //             include: [{ model: ProductInfo, as: 'info' }]
-    //         },
-    //     )
-    //     return res.json(product);
-    // }
 }
 
 module.exports = new BasketController()

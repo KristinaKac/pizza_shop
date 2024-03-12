@@ -1,10 +1,12 @@
 import React from 'react';
 import css from './Navbar.module.css';
 import { NavLink } from "react-router-dom"
+import { useSelector } from 'react-redux';
 
 const Navbar = () => {
-    const isAith = true;
-    const isAdmin = true;
+
+    const isAuth = useSelector((state) => state.userReducer.isAuth);
+    const isAdmin = useSelector((state) => state.userReducer.isAdmin);
 
     return (
         <ul className={css.navbar}>
@@ -28,7 +30,7 @@ const Navbar = () => {
                     Контакты
                 </NavLink>
             </li>
-            {isAith & isAdmin &&
+            {isAuth & isAdmin &&
                 <li className={css.navbar_item}>
                     <NavLink to='/admin' className={css.navbar_item_link}>
                         Управление сайтом

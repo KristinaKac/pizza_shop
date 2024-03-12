@@ -12,7 +12,7 @@ export const getAllProductsThunk = createAsyncThunk('product/getAll', async ({ty
 export const getOneProductThunk = createAsyncThunk('product/getOne', async (id) => {
     const { data } = await getOneProduct(id);
     return data;
-})
+});
 
 const initialState = {
     products: {
