@@ -1,4 +1,20 @@
-.App {
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  @font-face {
+    font-family: 'Roboto', sans-serif;
+    src: url('./source/Roboto-Regular.ttf');
+  }
+body {
+    background-color: #f8f9fa;
+    font-family: 'Roboto', sans-serif;
+}
+
+.App_wrapper {
     width: 1280px;
     margin: 0 auto;
+    
 }

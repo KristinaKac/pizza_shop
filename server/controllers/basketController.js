@@ -24,7 +24,7 @@ class BasketController {
         let userId = req.user.id;
         let productId = req.params.id;
 
-        if(!productId) {
+        if (!productId) {
             return next(ApiError.internal('Неккоректный id'));
         }
 
@@ -44,11 +44,50 @@ class BasketController {
         let userId = req.user.id;
 
         const basket = await Basket.findOne({ where: { userId } });
+        if (!basket) {
+            return
+        }
         const basketId = basket.id;
 
         const productsId = await BasketProduct.findAndCountAll({ basketId });
 
         return res.json(productsId);
+    }
+    async decreaseCountProduct(req, res, next) {
+        let userId = req.user.id;
+        let productId = req.body.id;
+
+        if (!productId) {
+            return next(ApiError.internal('Неккоректный id'));
+        }
+
+        const basket = await Basket.findOne({ where: { userId } });
+        const basketId = basket.id;
+
+        const basketProduct = await BasketProduct.findOne({
+            where: {
+                basketId,
+                productId
+            }
+        });
+        await basketProduct.destroy();
+
+        return res.json(basketProduct);
+    }
+    async increaseCountProduct(req, res, next) {
+        let userId = req.user.id;
+        let productId = req.body.id;
+
+        if (!productId) {
+            return next(ApiError.internal('Неккоректный id'));
+        }
+
+        const basket = await Basket.findOne({ where: { userId } });
+        const basketId = basket.id;
+
+        const basketProduct = await BasketProduct.create({ basketId, productId });
+
+        return res.json(basketProduct);
     }
 }
 

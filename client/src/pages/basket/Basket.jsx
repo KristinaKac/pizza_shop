@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import BasketForm from '../../components/basketForm/BasketForm';
-import { getProductsThunk, productsIdAtCartThunk, setBasketProduct } from '../../redux/slices/basket';
+import { getProductsThunk, productsIdAtCartThunk, setBasketProduct, setSumm } from '../../redux/slices/basket';
 import css from './Basket.module.css';
 import BasketCard from './BasketCard';
 
@@ -11,6 +11,7 @@ const Basket = () => {
     const basket = useSelector((state) => state.basketReducer.basket);
     const products = useSelector((state) => state.basketReducer.products);
     const basketProduct = useSelector((state) => state.basketReducer.basketProduct);
+    const summ = useSelector((state) => state.basketReducer.summ);
 
     useEffect(() => {
         dispatch(productsIdAtCartThunk());
@@ -29,13 +30,14 @@ const Basket = () => {
         }
     }, [basket]);
 
-    const summ = () => {
+    useEffect(() => {
         if (basketProduct.status === 'loaded') {
-            return basketProduct.items.reduce((currentSum, current) => {
-                return currentSum + (current.amount * current.product.price)
+            const summ = basketProduct.items.reduce((currentSum, current) => {
+                return currentSum + (current.amount * current.product.price);
             }, 0);
+            dispatch(setSumm(summ));
         }
-    }
+    }, [basketProduct]);
 
 
     return (
@@ -46,7 +48,7 @@ const Basket = () => {
                     {basketProduct.items.map(item => <BasketCard item={item} />)}
                 </ul>
                 <div>Сумма заказа:
-                    {summ()}
+                    {summ}
                 </div>
                 <BasketForm />
             </div>

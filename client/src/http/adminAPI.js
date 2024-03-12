@@ -9,4 +9,7 @@ export const getAllTypes = async () => {
 export const createProduct = async (formData) => {
     return authHost.post('/api/product', formData);
 }
+export const removeProduct = async (product) => {
+    return authHost.delete(`/api/product/${product}`);
+}
 

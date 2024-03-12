@@ -28,8 +28,14 @@ const ProductModal = ({ showProductModal, setShowProductModal }) => {
         formData.append('img', file);
         formData.append('info', JSON.stringify(info));
         formData.append('typeId', selectedType);
-        console.log(formData)
         dispatch(createProductThunk(formData));
+
+        handleClose();
+        setSelectedType('1');
+        setInputName('');
+        setInputPrice(0);
+        setFile(null);
+        setInfo([]);
     }
 
     useEffect(() => {

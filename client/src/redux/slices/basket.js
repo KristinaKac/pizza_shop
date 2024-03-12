@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { addToCart, getAllProductsId, removeFromCart } from '../../http/basketAPI';
+import { addToCart, changeCount, decreaseCount, getAllProductsId, increaseCount, removeFromCart } from '../../http/basketAPI';
 import { getAllProducts } from '../../http/productAPI';
 
 export const addToCartThunk = createAsyncThunk('basket/add', async (id) => {
@@ -8,6 +8,14 @@ export const addToCartThunk = createAsyncThunk('basket/add', async (id) => {
 });
 export const removeFromCartThunk = createAsyncThunk('basket/remove', async (id) => {
     const { data } = await removeFromCart(id);
+    return data;
+});
+export const increaseCountThunk = createAsyncThunk('basket/increase', async ({id}) => {
+    const { data } = await increaseCount(id);
+    return data;
+});
+export const decreaseCountThunk = createAsyncThunk('basket/decrease', async ({id}) => {
+    const { data } = await decreaseCount(id);
     return data;
 });
 export const productsIdAtCartThunk = createAsyncThunk('basket/getAll', async () => {
@@ -31,7 +39,8 @@ const initialState = {
     basketProduct: {
         items: [],
         status: 'loading'
-    }
+    },
+    summ: 0
 }
 
 export const basketSlice = createSlice({
@@ -41,6 +50,9 @@ export const basketSlice = createSlice({
         setBasketProduct: (state, action) => {
             state.basketProduct.items = action.payload;
             state.basketProduct.status = 'loaded'
+        },
+        setSumm: (state, action) => {
+            state.summ = action.payload;
         },
     },
     extraReducers: builder => {
@@ -84,6 +96,6 @@ export const basketSlice = createSlice({
     }
 });
 
-export const {setBasketProduct } = basketSlice.actions;
+export const { setBasketProduct, setSumm } = basketSlice.actions;
 
 export const basketReducer = basketSlice.reducer

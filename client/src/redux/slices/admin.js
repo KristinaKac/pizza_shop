@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { createProduct, createType, getAllTypes } from '../../http/adminAPI';
+import { createProduct, createType, getAllTypes, removeProduct } from '../../http/adminAPI';
 
 export const createTypeThunk = createAsyncThunk('type/create', async (name) => {
     const { data } = await createType(name);
@@ -10,8 +10,11 @@ export const getAllTypesThunk = createAsyncThunk('type/getAll', async () => {
     return data;
 });
 export const createProductThunk = createAsyncThunk('product/create', async (formData) => {
-    console.log(formData)
     const { data } = await createProduct(formData);
+    return data;
+});
+export const removeProductThunk = createAsyncThunk('product/removeProduct', async (product) => {
+    const { data } = await removeProduct(product);
     return data;
 });
 

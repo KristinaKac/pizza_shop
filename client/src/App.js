@@ -23,9 +23,9 @@ function App() {
   }, []);
 
   return (
-    <React.Fragment>
+    <div className='App'>
       <Header />
-      <div className='App'>
+      <div className='App_wrapper'>
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/product/:id' element={<CardProduct />} />
@@ -38,7 +38,7 @@ function App() {
           <Route path='register' element={<Register />} />
         </Routes>
       </div>
-    </React.Fragment>
+    </div>
   );
 }
 

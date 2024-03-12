@@ -33,6 +33,16 @@ class ProductController {
             next(ApiError.badRequest(error.message));
         }
     }
+    async remove(req, res, next) {
+        try {
+            let id = req.params.id;
+
+            const product = await Product.destroy({ where: { id } });
+            return res.json(product);
+        } catch (error) {
+            next(ApiError.badRequest(error.message));
+        }
+    }
 
     async getAll(req, res) {
         let { typeId, limit, page } = req.query;
