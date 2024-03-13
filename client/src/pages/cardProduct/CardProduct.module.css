@@ -1,0 +1,41 @@
+.card {
+    display: flex;
+    align-items: center;
+    column-gap: 50px;
+    padding: 50px;
+}
+.card_info {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 10px rgba(0,0,0,.05);
+    padding: 50px 30px;
+}
+.card_img img {
+    transition: transform 0.5s;
+    width: 500px;
+}
+.card_img img:hover {
+    transform: scale(115%);
+}
+.card_title {
+    font-size: 32px;
+    font-weight: 500;
+}
+.card_price {
+    font-size: 44px;
+    font-weight: 600;
+}
+.card_info_offer {
+    display: flex;
+    align-items: center;
+    column-gap: 40px;
+}
+.add_to_card_btn {
+    width: 250px;
+}
+.info {
+    margin: 20px 0px;
+}
+.info_title {
+    font-weight: 600;
+}
