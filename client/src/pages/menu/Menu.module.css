@@ -7,6 +7,10 @@
     align-items: center;
     row-gap: 10px;
 }
+.menu_title {
+    padding-top: 60px;
+    margin-bottom: 30px;
+}
 
 .products_list {
     display: grid;
@@ -14,10 +18,12 @@
     list-style-type: none;
     column-gap: 35px;
     row-gap: 35px;
+    padding: 0px;
 }
 .type_block {
     display: flex;
     align-items: center;
     list-style-type: none;
     column-gap: 20px;
+    padding: 0;
 }

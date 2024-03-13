@@ -1,4 +1,4 @@
-.type_btn {
+.type_link {
     text-decoration: none;
     color: black;
     padding: 7px 17px;
@@ -7,7 +7,7 @@
     background-color: #f8f9fa;
     transition: border 0.5s;
 }
-.type_btn:hover {
+.type_link:hover {
     border: 1px solid #C8502A;
     color: #C8502A;
 }
