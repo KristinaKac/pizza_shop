@@ -14,8 +14,8 @@ const Basket = () => {
     const summ = useSelector((state) => state.basketReducer.summ);
 
     useEffect(() => {
-        dispatch(productsIdAtCartThunk());
-        dispatch(getProductsThunk());
+        dispatch(productsIdAtCartThunk()); // ид товаров в корзине
+        dispatch(getProductsThunk()); // весь список товаров
     }, []);
 
     useEffect(() => {
@@ -26,6 +26,7 @@ const Basket = () => {
                     result.push({ product, amount: basket.productsId[product.id] })
                 }
             })
+            
             dispatch(setBasketProduct(result));
         }
     }, [basket]);
@@ -38,6 +39,8 @@ const Basket = () => {
             dispatch(setSumm(summ));
         }
     }, [basketProduct]);
+
+    
 
 
     return (

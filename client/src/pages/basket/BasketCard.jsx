@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Button from 'react-bootstrap/Button';
 import { useDispatch } from 'react-redux';
-import { changeCountThunk, decreaseCountThunk, increaseCountThunk, removeFromCartThunk } from '../../redux/slices/basket';
+import { decreaseCountThunk, increaseCountThunk, productsIdAtCartThunk, removeFromCartThunk } from '../../redux/slices/basket';
 import css from './Basket.module.css';
 
 const BasketCard = ({ item }) => {
@@ -9,13 +9,16 @@ const BasketCard = ({ item }) => {
     const dispatch = useDispatch();
 
     const removeProduct = () => {
-        dispatch(removeFromCartThunk(item.product.id))
+        dispatch(removeFromCartThunk(item.product.id));
+        dispatch(productsIdAtCartThunk());
     }
     const increaseCount = () => {
-        dispatch(increaseCountThunk({id: item.product.id}));
+        dispatch(increaseCountThunk({ id: item.product.id }));
+        dispatch(productsIdAtCartThunk());
     }
     const decreaseCount = () => {
-        dispatch(decreaseCountThunk({id: item.product.id}));
+        dispatch(decreaseCountThunk({ id: item.product.id }));
+        dispatch(productsIdAtCartThunk());
     }
 
 

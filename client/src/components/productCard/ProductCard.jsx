@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import pizza from '../../static/pizza1.jpg'
 import { NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { addToCartThunk } from '../../redux/slices/basket';
+import { addToCartThunk, productsIdAtCartThunk } from '../../redux/slices/basket';
 
 
 const ProductCard = ({ product }) => {

@@ -1,0 +1,13 @@
+.type_btn {
+    text-decoration: none;
+    color: black;
+    padding: 7px 17px;
+    border-radius: 20px;
+    border: 1px solid #e6e2e1;
+    background-color: #f8f9fa;
+    transition: border 0.5s;
+}
+.type_btn:hover {
+    border: 1px solid #C8502A;
+    color: #C8502A;
+}

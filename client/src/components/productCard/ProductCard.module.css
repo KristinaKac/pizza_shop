@@ -7,6 +7,12 @@
     border-radius: 12px;
     box-shadow: 0 10px 10px rgba(0,0,0,.05);
     padding: 16px 20px;
+    transition: transform 0.5s;
+    position: relative;
+    z-index: 1;
+}
+.product_card:hover {
+    transform: scale(105%);
 }
 .body_product_card {
     display: flex;
