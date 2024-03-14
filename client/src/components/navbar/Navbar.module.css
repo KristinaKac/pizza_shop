@@ -1,7 +1,7 @@
 .navbar {
     display: flex;
     list-style-type: none;
-    column-gap: 15px;
+    column-gap: 19px;
     align-items: center;
     margin: 0;
 }
@@ -12,5 +12,7 @@
 .navbar_item_link {
     text-decoration: none;
     color: black;
-
+}
+.navbar_item_link:hover {
+    color: #C8502A;
 }

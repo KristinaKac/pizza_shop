@@ -1,40 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import css from './BestProducts.module.css';
-import Button from 'react-bootstrap/Button';
-import pizza from '../../static/pizza1.jpg'
-import ProductCard from '../productCard/ProductCard';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllProductsThunk } from '../../redux/slices/product';
+import ProductCard from '../../components/productCard/ProductCard';
 
 const BestProducts = () => {
-    const products = [
-        {
-            img: pizza,
-            name: 'Classic Chicken',
-            price: '600 руб'
-        },
-        {
-            img: pizza,
-            name: 'Classic Chicken',
-            price: '600 руб'
-        },
-        {
-            img: pizza,
-            name: 'Classic Chicken',
-            price: '600 руб'
-        },
-        {
-            img: pizza,
-            name: 'Classic Chicken',
-            price: '600 руб'
-        },
-    ]
+    const dispatch = useDispatch();
+    const products = useSelector((state) => state.productReducer.products);
+
+    useEffect(() => {
+        dispatch(getAllProductsThunk({ typeId: null, limit: 4, page: 1 }));
+    }, []);
 
     return (
-        <div className={css.best_products_section}>
-            <h2>Our Best Sellers</h2>
-            <ul className={css.best_products_list}>
-                {products.map(product => <ProductCard img={product.img} name={product.name} price={product.price} />)}
+        <section className={css.section_best}>
+            <h2>Популярное за месяц</h2>
+            <ul className={css.products_list}>
+                {products.items.map(product =>
+                    <ProductCard key={product.id} product={product} />
+                )}
             </ul>
-        </div>
+        </section>
+
     )
 }
 export default BestProducts;

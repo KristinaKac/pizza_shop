@@ -21,9 +21,12 @@ const Navbar = () => {
                 </NavLink>
             </li>
             <li className={css.navbar_item}>
-                <NavLink to='/about' className={css.navbar_item_link}>
-                    О нас
-                </NavLink>
+                <a href="#about" className={css.navbar_item_link}>
+                О нас
+                </a>
+                {/* <NavLink to='#about' className={css.navbar_item_link}>
+                    
+                </NavLink> */}
             </li>
             <li className={css.navbar_item}>
                 <NavLink to='/contact' className={css.navbar_item_link}>

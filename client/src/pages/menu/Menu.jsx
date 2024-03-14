@@ -14,12 +14,10 @@ const Menu = () => {
     const limitProductOnPage = useSelector((state) => state.productReducer.products.limitProductOnPage);
     const types = useSelector((state) => state.adminReducer.types);
     const products = useSelector((state) => state.productReducer.products);
-    const sortProducts = useSelector((state) => state.adminReducer.sortProducts);
 
     useEffect(() => {
         dispatch(getAllTypesThunk());
         dispatch(getAllProductsThunk({ typeId: null, limit: limitProductOnPage, page: 1 }));
-
     }, []);
 
     useEffect(() => {

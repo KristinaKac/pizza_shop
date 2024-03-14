@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import css from './Header.module.css';
 import Navbar from '../navbar/Navbar';
 import logo from '../../static/logo.png'
@@ -15,6 +15,8 @@ const Header = () => {
     const isAuth = useSelector((state) => state.userReducer.isAuth);
     const user = useSelector((state) => state.userReducer.user);
 
+    const [hover, setHover] = useState(false);
+
     const logout = () => {
         dispatch(setIsAuth(false));
         dispatch(setUser({ userInfo: {}, status: 'loading' }));
@@ -29,17 +31,28 @@ const Header = () => {
                         <NavLink>
                             <img style={{ width: '50px' }} src={logo} alt="logo" />
                         </NavLink>
-
                         <Navbar />
                     </div>
 
                     <div className={css.header_block}>
-                        {isAuth && <div>{`Hello, ${user.userInfo.name}`}</div>}
+                        {isAuth && <div>{`Добро пожаловать, ${user.userInfo.name}`}</div>}
+
+                        <NavLink
+                            onMouseEnter={() => setHover(true)}
+                            onMouseLeave={() => setHover(false)}
+                            className={css.btn_link_transparent} to='/basket'>
+                            {hover
+                                ? <i class="bi bi-bag-fill"></i>
+                                : <i class="bi bi-bag"></i>
+                            }
+                        </NavLink>
+
                         {isAuth
-                            ? <Button onClick={() => logout()} variant="primary">Logout</Button>
-                            : <Button variant="primary"><NavLink style={{ textDecoration: 'none', color: 'white' }} to='/login'>Войти</NavLink></Button>
+                            ? <button className={css.btn_orange} onClick={() => logout()}>Выйти</button>
+                            : <button className={css.btn_orange}>
+                                <NavLink style={{ textDecoration: 'none', color: 'white' }} to='/login'>Войти</NavLink>
+                            </button>
                         }
-                        {isAuth && <NavLink to='/basket'>Корзина</NavLink>}
                     </div>
                 </div>
             </div>

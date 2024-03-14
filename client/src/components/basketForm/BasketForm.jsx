@@ -18,28 +18,30 @@ const BasketForm = () => {
             }}
         >
             {({ isSubmitting }) => (
-                <Form className={css.form}>
-                    <h2>Оформление заказа</h2>
-                    <div className={css.form_control}>
-                        <label htmlFor="name">Ваше имя</label>
-                        <Field className={css.input} type="text" name="name" />
-                        <ErrorMessage name="name" component="div" />
-                    </div>
-                    <div className={css.form_control}>
-                        <label htmlFor="phone">Номер телефона</label>
-                        <Field className={css.input} type="text" name="phone" />
-                        <ErrorMessage name="phone" component="div" />
-                    </div>
-                    <div className={css.form_control}>
-                        <label htmlFor="address">Адрес доставки</label>
-                        <Field className={css.input} type="text" name="address" />
-                        <ErrorMessage name="address" component="div" />
-                    </div>
+                <div className={css.form_wrapper}>
+                    <Form className={css.form}>
+                        <h2>Оформление заказа</h2>
+                        <div className={css.form_control}>
+                            <label className={css.form_label} htmlFor="name">Ваше имя</label>
+                            <Field className={css.input} type="text" name="name" />
+                            <ErrorMessage className={css.error} name="name" component="div" />
+                        </div>
+                        <div className={css.form_control}>
+                            <label className={css.form_label} htmlFor="phone">Номер телефона</label>
+                            <Field className={css.input} type="text" name="phone" />
+                            <ErrorMessage className={css.error} name="phone" component="div" />
+                        </div>
+                        <div className={css.form_control}>
+                            <label className={css.form_label} htmlFor="address">Адрес доставки</label>
+                            <Field className={css.input} type="text" name="address" />
+                            <ErrorMessage className={css.error} name="address" component="div" />
+                        </div>
 
-                    <button type="submit" disabled={isSubmitting}>
-                        Подтвердить
-                    </button>
-                </Form>
+                        <button className={css.btn_orange} type="submit" disabled={isSubmitting}>
+                            Подтвердить
+                        </button>
+                    </Form>
+                </div>
             )}
         </Formik>
     )

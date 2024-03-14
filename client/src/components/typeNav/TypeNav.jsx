@@ -8,9 +8,6 @@ const TypeNav = ({ type }) => {
     return (
         <li>
             <a className={css.type_link} href={`#${type.id}`}>{type.name}</a>
-            {/* <button className={css.type_btn}>
-                {type.name}
-            </button> */}
         </li>
     )
 }

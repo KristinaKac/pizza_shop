@@ -4,19 +4,139 @@
     align-items: center;
     row-gap: 17px;
 }
+
+.basket_title {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    padding: 25px 10px 10px;
+}
+
 .basket {
     display: grid;
     grid-template-columns: 2fr 1fr;
     column-gap: 30px;
 }
+
+.basket_list {
+    background-color: white;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, .05);
+    padding: 0;
+    border-radius: 12px;
+}
+
 .basket_item {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #d5d5d5;
+    padding: 25px 40px;
 }
+
+.basket_item:last-child {
+    border: none;
+}
+
 .basket_control {
     display: flex;
     align-items: center;
     column-gap: 20px;
+    text-decoration: none;
+    color: black;
+}
+
+.item_amount {
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+    border: #d5d5d5 1px solid;
+    border-radius: 9px;
+}
+
+.btn_non_border {
+    border: none;
+    background-color: inherit;
+    padding: 5px;
+    transition: background-color 0.5s;
+}
+
+.btn_non_border:hover {
+    background-color: #d5d5d5;
+    color: white;
+}
+
+.right {
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+}
+
+.left {
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+}
+
+.btn_orange {
+    background-color: #C8502A;
+    color: white;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    transition: background-color 0.5s;
+    border: 1px solid #C8502A;
+}
+
+.btn_orange:hover {
+    background-color: white;
+    border: 1px solid #C8502A;
+    color: #C8502A;
+}
+
+.item_price {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.item_name {
+    font-size: 18px;
+    color: #9d9c9c;
+}
+
+.basket_summa {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.basket_summa_title {}
+
+.basket_summa_amount {}
+
+.basket_empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    font-size: 14px;
+    color: #9d9c9c;
+    width: 250px;
+}
+
+.btn_link_orange {
+    background-color: #C8502A;
+    color: white;
+    padding: 7px 15px;
+    border-radius: 9px;
+    transition: background-color 0.5s;
+    border: 1px solid #C8502A;
+    width: 100%;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.btn_link_orange:hover {
+    background-color: white;
+    border: 1px solid #C8502A;
+    color: #C8502A;
 }

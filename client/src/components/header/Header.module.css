@@ -29,3 +29,30 @@
     justify-content: space-between;
     column-gap: 15px;
 }
+
+.btn_orange {
+    background-color: #C8502A;
+    color: white;
+    padding: 7px 15px;
+    border: none;
+    border-radius: 9px;
+    transition: background-color 0.5s;
+    border: 1px solid #C8502A;
+}
+
+.btn_orange:hover {
+    background-color: white;
+    border: 1px solid #C8502A;
+    color: #C8502A;
+}
+.btn_link_transparent {
+    background-color: white;
+    padding: 7px 15px;
+    border: 1px solid #C8502A;
+    border-radius: 9px;
+    text-decoration: none;
+    color: #C8502A;
+}
+.bi-bag {
+    background-color: #C8502A;
+}

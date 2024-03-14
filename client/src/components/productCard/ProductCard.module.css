@@ -5,15 +5,17 @@
     row-gap: 15px;
     background-color: white;
     border-radius: 12px;
-    box-shadow: 0 10px 10px rgba(0,0,0,.05);
+    box-shadow: 0 10px 10px rgba(0, 0, 0, .05);
     padding: 16px 20px;
     transition: transform 0.5s;
     position: relative;
     z-index: 1;
 }
+
 .product_card:hover {
     transform: scale(105%);
 }
+
 .body_product_card {
     display: flex;
     flex-direction: column;
@@ -22,25 +24,40 @@
     color: black;
     row-gap: 10px;
 }
+
 .body_product_card h2 {
     font-size: 18px;
 }
+
 .body_product_card span {
     color: #979797;
     font-size: 12px;
     font-weight: 400;
 }
+
 .add_to_card_btn {
     background-color: #C8502A;
-    border-color: #C8502A;
     color: white;
+    padding: 7px 15px;
+    border: none;
+    border-radius: 9px;
+    transition: background-color 0.5s;
+    border: 1px solid #C8502A;
 }
+
+.add_to_card_btn:hover {
+    background-color: white;
+    border: 1px solid #C8502A;
+    color: #C8502A;
+}
+
 .footer_product_card {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
 }
+
 .product_card_price {
     font-size: 20px;
     color: black;

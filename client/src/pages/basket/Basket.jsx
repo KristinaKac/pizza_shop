@@ -4,6 +4,7 @@ import BasketForm from '../../components/basketForm/BasketForm';
 import { getProductsThunk, productsIdAtCartThunk, setBasketProduct, setSumm } from '../../redux/slices/basket';
 import css from './Basket.module.css';
 import BasketCard from './BasketCard';
+import { NavLink } from 'react-router-dom';
 
 const Basket = () => {
 
@@ -26,7 +27,6 @@ const Basket = () => {
                     result.push({ product, amount: basket.productsId[product.id] })
                 }
             })
-            
             dispatch(setBasketProduct(result));
         }
     }, [basket]);
@@ -40,21 +40,35 @@ const Basket = () => {
         }
     }, [basketProduct]);
 
-    
+
 
 
     return (
         <div className={css.basket_wrapper}>
-            <h2>Корзина</h2>
+            <div className={css.basket_title}>
+                <h2>Корзина</h2>
+            </div>
+
+
             <div className={css.basket}>
                 <ul className={css.basket_list}>
                     {basketProduct.items.map(item => <BasketCard item={item} />)}
                 </ul>
-                <div>Сумма заказа:
-                    {summ}
-                </div>
-                <BasketForm />
+                {basketProduct.items.length !== 0 && <BasketForm />}
             </div>
+
+            {basketProduct.items.length !== 0
+                ?
+                <div className={css.basket_summa}>
+                    <span className={css.basket_summa_title}>Сумма заказа: </span>
+                    <span className={css.basket_summa_amount}>{summ}&#8381;</span>
+                </div>
+                : <div className={css.basket_empty}>
+                    <span>Корзина пуста, добавьте что-нибудь из меню</span><br />
+                    <NavLink className={css.btn_link_orange} to='/product'>Меню</NavLink>
+                </div>
+            }
+
         </div>
     )
 }

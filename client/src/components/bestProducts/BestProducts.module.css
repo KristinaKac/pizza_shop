@@ -1,16 +1,14 @@
-.best_products_section {
+.section_best {
+    margin: 50px 0px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    row-gap: 10px;
+    row-gap: 30px;
 }
-.best_products_section h2 {
-
-}
-
-.best_products_list {
+.products_list {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     list-style-type: none;
     column-gap: 35px;
+    row-gap: 35px;
+    padding: 0px;
 }
